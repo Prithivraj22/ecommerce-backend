@@ -53,9 +53,18 @@ const cartSchema = new Schema({
   
 });
 
+const productSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  description: { type: String, required: true },
+  price: { type: Number, required: true },
+  image: { type: String },
+  category: { type: String },
+}, { timestamps: true });
+
 const User = mongoose.model("User", authSchema);
 const SearchHistory = mongoose.model("SearchHistory", historySchema);
 const Item = mongoose.model("Item", itemSchema);
 const Cart = mongoose.model("Cart", cartSchema);
+const Product = mongoose.model("Product", productSchema);
 
-module.exports = { User, SearchHistory, Item, Cart };
+module.exports = { User, SearchHistory, Item, Cart , Product};
