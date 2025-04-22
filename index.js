@@ -7,6 +7,8 @@ const connectDB = require("./config.js");
 const app = express();
 
 connectDB();
+const errorHandler = require('./middleware/errorHandler');
+app.use(errorHandler);
 
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
