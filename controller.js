@@ -208,3 +208,34 @@ exports.getSubscriberid = async(req,res)=>{
 
   }
 };
+
+exports.createProduct = async (req, res) => {
+  const { name, description, price, image, category } = req.body;
+  try {
+    const newProduct = new Product({ name, description, price, image, category });
+    await newProduct.save();
+    res.status(201).json({ product: newProduct });
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
+
+exports.getAllProducts = async (req, res) => {
+  try {
+    const products = await Product.find();
+    res.status(200).json({ products });
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
+
+exports.getProduct = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const product = await Product.findById(id);
+    if (!product) return res.status(404).json({ error: "Product not found" });
+    res.status(200).json({ product });
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
